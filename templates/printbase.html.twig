@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}ALIKO{% endblock title%}</title>
+        <meta name="description" content="printout">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block corelinks %}
+            <!-- Bootstrap CSS-->
+            <link rel="stylesheet" href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}">
+            <!-- Font Awesome CSS-->
+            <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
+            <!-- Fontastic Custom icon font-->
+            <link rel="stylesheet" href="{{asset('css/fontastic.css')}}">
+            <!-- Ionicon Custom icon font-->
+            <link rel="stylesheet" href="{{asset('vendor/ionicon/css/ionicons.min.css')}}">
+            <!-- Google fonts - Poppins -->
+            <link rel="stylesheet" href="{{asset('css/googlefontspoppins300_400_700.css')}}">
+            <!-- theme stylesheet-->
+            <link rel="stylesheet" href="{{asset('css/style.default.css')}}" id="theme-stylesheet">
+            <!-- Custom stylesheet - for your changes-->
+            <link rel="stylesheet" href="{{asset('css/custom_print.css')}}">
+        {% endblock corelinks %}
+        {% block links %} 
+        {% endblock links %}  
+        <style>
+            .msg{
+                font-weight:lighter;
+            }      
+            #main-header{
+                background-color:#ffffff;
+                color:#ff0000;
+                padding-top:20px;
+                padding-bottom:20px;
+            }
+            #main-header h1{
+                margin:0px;
+                padding-left:10px;
+            }
+
+            #main-header #header-line{
+                border-style:solid;
+                border-color:#ff0000;
+                border-width:5px;
+            }
+            {% block stylesheet %} 
+            {% endblock stylesheet %}  
+        </style>
+        <!-- Favicon-->
+        <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
+    </head>
+    <body>
+        {% block body %}
+            <div class="page">
+                <div class='row'>
+                    <div class='col-lg-2'></div>
+                    <div class='col-lg-8'>
+                        <header id='main-header'>
+                            <h1 style='text-align:center;'><img src='{{asset('img/aliko-logo.jpeg')}}' style='width:70px; height: 70px;' /> ALIKO OIL NIGERIA LIMITED</h1>
+                            <hr id='header-line'/>
+                        </header>
+                        {% block content %} 
+                        {% endblock content %}
+                        <!-- Page Footer-->
+                        <footer class='main-footer'>
+                            {% block footer %}  
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <p>ALIKO Oil Nigeria Ltd &copy; {{"now"|date('Y')}}</p>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <p>Design by <a href="http://www.bitssense.com" class="external" style="background-color:#ffffff; padding-left:3px; padding-right: 3px; text-shadow: 0px 0px 0.2px #ffffff;"><b style="color:black; ">Bits</b><b style="color: #1388da;">Sense</b></a> Ltd</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endblock footer %}  
+                        </footer>
+                    </div>
+                    <div class='col-lg-2'></div>
+                </div>
+            </div>
+
+            {% block corescripts %}  
+                <!-- Javascript files-->
+                <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+                <script src="{{asset('vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+                <script src="{{asset('js/sitescript.js')}}"></script>
+            {% endblock corescripts %}  
+            {% block scripts %} 
+            {% endblock scripts %} 
+            {% block js %}  
+            {% endblock js %}  
+        {% endblock body %}
+    </body>
+</html>

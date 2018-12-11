@@ -1,0 +1,58 @@
+{# empty Twig template #}
+{% extends "printbase.html.twig" %}
+{% block title %} Product Delivery Note {% endblock title %}
+{% block stylesheet %}
+    #delivery-info {
+    /*background-image: url('{{asset('img/aliko-logo.jpeg')}}');*/
+    background-position: 50% 50%;
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: 30%;
+    }
+    .grp{
+    border-style:solid;
+    border-color:#ff0000;
+    border-width: 3px;
+    border-top-right-radius:50px;
+    border-bottom-left-radius:50px;
+    padding:15px;
+    margin:15px;
+    }
+    .grp strong{
+    margin-right:10px;
+    }
+{% endblock stylesheet %}
+{% block content %}
+
+    <div class="card">
+        <div class="card-header d-flex align-content-center">
+            <h3 class="h2 ">PRODUCT DELIVERY NOTE</h3>                            
+        </div>
+        <div class="card-body">   
+            <div id='delivery-info'>
+                <div class='grp'>
+                    <h2>ORDER</h2><br />
+                    <strong>Order Id: </strong>{{dist.order.Id}}<br />
+                    <strong>Product: </strong>{{dist.order.product.getProductName()~'('~dist.order.product.getProductCode()~')'}}<br />
+                    <strong>Quantity Ordered: </strong>{{dist.order.quantity}} {{dist.order.product.getUnitMetric()|capitalize}}<br />
+                    <strong>Quantity For This Delivery: </strong>{{dist.quantityDelivered}} {{dist.order.product.getUnitMetric()|capitalize}}<br />
+                    <strong>Delivery Location: </strong>{{dist.location}}<br />
+                    <strong>Expected Delivery Date: </strong>{{dist.deliveryDate|date('D jS F, Y')}}<br />
+                </div>
+                <div class='grp'>
+                    <h2>LOGISTICS</h2><br />
+                    <strong>Truck No.: </strong>{{dist.loadingRecord.truckNo}} <br />
+                    <strong>Driver's Name: </strong>{{dist.loadingRecord.driverName}}<br />
+                </div>
+                <div class='grp'>
+                    <h2>SIGNATORY</h2><br />
+                    <strong>Name: </strong> ___________________
+
+                    <strong>Sign & Date: </strong> ___________________
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

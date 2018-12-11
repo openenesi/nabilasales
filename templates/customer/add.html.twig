@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clients{% endblock title %}
+
+{% block stylesheet%}
+    .table-responsive{
+    min-height:200px;
+    }
+    #businessName{
+    max-width:300px;
+    }
+{% endblock stylesheet %}
+
+{% block content %}
+     <br />
+    <h1>
+        New Client
+    </h1>
+    <div class='row row-cards row-deck'>
+        <div class="col-12">
+
+            <div class='text-right'><a href='{{path('customer')}}' class='btn btn-primary'>List of Clients </a></div>
+            <br />
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Enter Client Details</h3>
+                </div>
+                <div class='container'>
+                    {{form_start(form, {'attr': {'novalidate': 'novalidate'}})}}
+                    {{form_errors(form)}}
+                    {% if saved is defined %}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            Client information was captured successfully!
+                        </div>
+                    {% endif %}
+
+                    <div class='row'>
+                        <div class='col-12 col-md-2'>
+                            {{form_row(form.title)}}
+                        </div>
+                        <div class='col-12 col-md-5'>
+                            {{form_row(form.lname)}}
+                        </div>
+                        <div class='col-12 col-md-5'>
+                            {{form_row(form.fname)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-md-5'>
+                            {{form_row(form.oname)}}
+                        </div>
+                        <div class='col-12 col-md-4'>
+                            {{form_row(form.email)}}
+                        </div>
+                        <div class='col-12 col-md-3'>
+                            {{form_row(form.mobileNo)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-sm-6'>
+                            {{form_row(form.address)}}
+                        </div>
+                        <div class='col-sm-6'>
+                            {{form_row(form.businessName)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-sm-12 col-md-3'>
+                            {{form_row(form.status)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-sm-12 col-md-3'>
+                            {{form_row(form.register)}}
+                        </div>
+                    </div>
+                    {{form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

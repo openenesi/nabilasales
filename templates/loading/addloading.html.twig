@@ -1,0 +1,172 @@
+{# empty Twig template #}
+{% extends "base.html.twig" %}
+
+{% block corelinks %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('assets/plugins/jqueryscript/jquery.datetimepicker.min.css')}}">
+{% endblock corelinks %}
+{% block stylesheet %}
+    #truckfield2{
+    display:none;
+    }
+{% endblock stylesheet %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header">
+                <h1 class="page-title">
+                    Capture Product Loading From Depot
+                </h1>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    {% if loadingid is defined %}
+                        <div class="alert alert-success" role="alert">
+                            Loading information was captured successfully!. Click <a href=''>here</a> to view.
+                        </div>
+                    {% endif %}
+                    {{form_start(form, {'attr': {'novalidate': 'novalidate'}})}}
+                    {{form_errors(form)}}
+
+                    <div class='row'>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.loadingDate)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.loadingDepot)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.meterTicket)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.product)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.purchaseRate)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.quantity)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.ullage)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.oh)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.lh)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.truckEntryChoice)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            <div id='truckfield1'>{{form_row(form.truckChoice)}}</div>
+                            <div id='truckfield2'>{{form_row(form.truckNumber1)}}</div>
+                            {{form_row(form.truckNumber)}}
+                        </div>
+
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.driverName)}}
+                        </div>
+                        <div class='col-12 col-sm-6 col-md-4'>
+                            {{form_row(form.driverMobileNo)}}
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-12 col-md-6'>
+                            {{form_row(form.destination)}}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class='card-footer text-right'>
+                    {{form_end(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block corescripts %}
+    {{ parent()}}
+    <script src="{{asset('assets/plugins/jqueryscript/jquery.datetimepicker.full.min.js')}}"></script>
+{% endblock corescripts %}
+{% block js %}
+    <script type='text/javascript'>
+
+        /*$(".date").datepicker({
+         dateFormat: "yy-mm-dd",
+         changeMonth: true,
+         changeYear:true,
+         currentText:'Now',
+         maxDate:'+0d',
+         /*minDate:'-20d',
+         * yearRange: "c-10:c+10"*/
+        /*numberOfMonths :1,
+         selectOtherMonths: false,
+         showOtherMonths: true,
+         showAnim:'fadeIn',
+         duration:'slow',
+         showButtonPanel:true
+         
+         });*/
+        var dt = new Date().setDate(new Date().getDate() - 20);
+        $(".date").datetimepicker({
+            format: 'Y-m-d H:i:s',
+            formatTime: 'H:i',
+            formatDate: 'Y-m-d',
+            step: 10,
+            monthChangeSpinner: true,
+            closeOnDateSelect: true,
+            closeOnWithoutClick: true,
+            closeOnInputClick: true,
+            timepicker: true,
+            datepicker: true,
+            defaultTime: false, // use formatTime format (ex. '10:00' for formatTime: 'H:i')
+            defaultDate: false, // use formatDate format (ex new Date() or '1986/12/08' or '-1970/01/05' or '-1970/01/05')
+            maxDate: new Date(),
+            yearStart: new Date().getFullYear() - 1,
+            yearEnd: new Date().getFullYear()
+        });
+
+        $(document).on('keyup paste change', '#loading_truckNumber1', function (event) {
+            dis = $(this);
+            $('#loading_truckNumber').val(dis.val());
+        });
+
+        $(document).on('click', '#loading_truckEntryChoice_0', function (event) {
+            dis = $(this);
+            if (dis.prop('checked') == true) {
+                $('#truckfield2').hide();
+                $('#truckfield1').show();
+                $('.driverinfo').val("");
+                $('#loading_truckChoice').trigger('change');
+            } else {
+                $('#truckfield2').show();
+                $('#truckfield1').hide();
+                $('.driverinfo').val("");
+                $('#loading_truckNumber1').trigger('change');
+            }
+        });
+        $(document).on('change', '#loading_truckChoice', function (event) {
+            $('#loading_truckNumber').val($("#loading_truckChoice option:selected").attr('data-truckNo'));
+            $('#loading_driverName').val($("#loading_truckChoice option:selected").attr('data-driverName'));
+            $('#loading_driverMobileNo').val($("#loading_truckChoice option:selected").attr('data-driverNo'));
+        }
+        );
+
+        $(document).on('change', '#loading_product', function (event) {
+            $('#loading_purchaseRate').val($("#loading_product option:selected").attr('data-price'));
+        });
+    </script>
+{% endblock js %}

@@ -1,0 +1,198 @@
+{# global variable declarations #}
+{% set ExpensePages = ["listexpense", "addexpense", "editexpense"] %}
+{% set TruckPages = ["listtruckowner", "addtruckowner", "edittruckowner","listtruck", "addtruck", "edittruck","listtruckexpense", "addtruckexpense", "edittruckexpense"] %}
+{% set UserPages = ["listuser", "adduser"] %}
+{% set ProductPages = ["listproduct", "addproduct", "editproduct"] %}
+{% set CustomerPages = ["listcustomer", "addcustomer", "editcustomer", "viewcustomer"] %}
+{% set OrderPages = ["listorder", "vieworder", "listtransaction", "viewtransaction", "addorder", "addtransaction", "editorder", "edittransaction"] %}
+{% set LoadingPages = ["productloading","listloading","addloading", "modifyloading", "viewloading","listloadingrec","addloadingrec", "modifyloadingrec", "viewloadingrec"] %}
+{% set ReportPages = ["salesreport"] %}
+{% set StationPages = ["liststation", "addstation"] %}
+{% set FuelStationPages = ["listfuelstation", "addfuelstation", "editfuelstation"] %}
+{% if page is not defined %}
+    {% if (app.request.getPathInfo()|slice(0, 8)) == '/_error/' %}
+        {% set page = "errorpage" %}
+    {% endif %}
+{% endif %}
+
+<!doctype html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta http-equiv="Content-Language" content="en" />
+        <meta name="msapplication-TileColor" content="#2d89ef">
+        <meta name="theme-color" content="#4188c9">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/favicon.ico')}}" />
+        <!-- Generated: 2018-04-16 09:29:05 +0200 -->
+        <title>{% block title %}NABILA{% endblock title%}</title>
+        {% block corelinks %}
+            <link rel="stylesheet" href="{{asset('assets/plugins/font-awesome/4.7.0/css/font-awesome.min.css')}}">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+            <!-- Dashboard Core -->
+            <link href="{{asset('assets/css/dashboard.css')}}" rel="stylesheet" />
+        {% endblock corelinks %}
+
+        {% block links %} 
+        {% endblock links %}  
+
+        <style>
+            {% block stylesheet %} 
+            {% endblock stylesheet %}  
+        </style>
+    </head>
+    <body class="">
+        {% block body %}
+            <div class="page">
+
+                <div class="page-main">
+                    {% block top %}
+                        {% block header %}
+                            <div class="header py-4">
+                                <div class="container">
+                                    <div class="d-flex">
+                                        <a class="header-brand" href="./index.html">
+                                            <img src="{{asset('assets/images/nabila_logo.png')}}" class="header-brand-img" alt="nabila logo">
+                                        </a>
+                                        <div class="d-flex order-lg-2 ml-auto">
+                                            <div class="dropdown">
+                                                <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+                                                    <span class="avatar" style="background-image: url({{asset('assets/images/profile-pix/25.jpg')}});"></span>
+                                                    <span class="ml-2 d-none d-lg-block">
+                                                        <span class="text-default">Mujitaba</span>
+                                                        <small class="text-muted d-block mt-1">Administrator</small>
+                                                    </span>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="dropdown-icon fe fe-user"></i> Profile
+                                                    </a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="{{path('logout')}}">
+                                                        <i class="dropdown-icon fe fe-log-out"></i> Sign out
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+                                            <span class="header-toggler-icon"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock header %}
+                        {% block menu %}
+                            <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+                                <div class="container">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg order-lg-first">
+                                            <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="{{path('productloading')}}" class="nav-link {{ page in LoadingPages ?"active":""}}" ><i class="fa fa-ship"></i> Product Loading</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="{{path('customer')}}" class="nav-link {{ page in CustomerPages ?"active":""}}" ><i class="fe fe-users"></i> Clients</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link" ><i class="fa fa-wpforms"></i> Orders</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link" ><i class="fa fa-clipboard"></i> Invoices</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="#" class="nav-link" ><i class="fe fe-truck"></i> Managed Trucks</a>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fe fe-user"></i> Admin</a>
+                                                    <div class="dropdown-menu dropdown-menu-arrow">
+                                                        <a href="./maps.html" class="dropdown-item "><i class="fe fe-box"></i> Products</a>
+                                                        <a href="./icons.html" class="dropdown-item " ><i class="fa fa-group"></i> Manage Users</a>
+                                                        <a href="./store.html" class="dropdown-item "><i class="fa fa-info"></i> Company Info</a>
+                                                    </div>
+                                                </li>
+                                                <li class="nav-item dropdown">
+                                                    <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown"><i class="fa fa-pie-chart"></i> Report</a>
+                                                    <div class="dropdown-menu dropdown-menu-arrow">
+                                                        <a href="./profile.html" class="dropdown-item "><i class="fa fa-money"></i> Financial Report</a>
+                                                        <a href="./login.html" class="dropdown-item ">Login</a>
+                                                        <a href="./register.html" class="dropdown-item ">Register</a>
+                                                        <a href="./forgot-password.html" class="dropdown-item ">Forgot password</a>
+                                                        <a href="./400.html" class="dropdown-item ">400 error</a>
+                                                        <a href="./401.html" class="dropdown-item ">401 error</a>
+                                                        <a href="./403.html" class="dropdown-item ">403 error</a>
+                                                        <a href="./404.html" class="dropdown-item ">404 error</a>
+                                                        <a href="./500.html" class="dropdown-item ">500 error</a>
+                                                        <a href="./503.html" class="dropdown-item ">503 error</a>
+                                                        <a href="./email.html" class="dropdown-item ">Email</a>
+                                                        <a href="./empty.html" class="dropdown-item active">Empty page</a>
+                                                        <a href="./rtl.html" class="dropdown-item ">RTL mode</a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endblock menu %}
+                    {% endblock top %}
+                    <div class='container'>
+                        {% block content %} 
+                        {% endblock content %}
+                    </div>
+                </div>
+                {% block footer %}
+                    <footer class="footer">   
+                        <div class="container">
+                            <div class="row align-items-center flex-row-reverse">
+                                <div class="col-auto ml-lg-auto">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <ul class="list-inline list-inline-dots mb-0">
+                                                <li class="list-inline-item"><a href="./faq.html">FAQ</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                                    <p>Design by <a href="http://www.bitssense.com.ng" class="external" style="background-color:#ffffff; padding-left:3px; padding-right: 3px; text-shadow: 0px 0px 0.2px #ffffff;"><b style="color:black; ">Bits</b><b style="color: #1388da;">Sense</b></a> Ltd</p>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                {% endblock footer %}
+            </div>
+            {% block corescripts %}  
+
+ <!--<script src="{{asset('assets/js/require.min.js')}}"></script>
+ <script>
+     requirejs.config({
+         baseUrl: '{{asset("")}}'
+     });
+
+ </script> -->
+                <!-- Jquery Core -->
+                <script src="{{asset('assets/js/vendors/jquery-3.2.1.min.js')}}"></script>
+                <script src="{{asset('assets/js/vendors/bootstrap.bundle.min.js')}}"></script>
+                <!-- Tabler Core -->
+                <script src="{{asset('assets/js/tabler.js')}}"></script>
+                <!-- Input Mask Plugin -->
+                <script src="{{asset('assets/plugins/input-mask/js/jquery.mask.min.js')}}"></script>
+            {% endblock corescripts %}  
+            {% block scripts %} 
+            {% endblock scripts %} 
+            {% block js %}  
+            {% endblock js %}  
+
+        {% endblock body %}
+    </body>
+</html>
